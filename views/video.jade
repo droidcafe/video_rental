@@ -1,0 +1,14 @@
+extends layout
+
+mixin list_item(name,genre,description)
+  div.movie_item
+    h2.name= name
+    p.genre It is a
+      i  #{genre}
+    p.desp= description
+
+
+block content
+  h1 Welcome to video rental store #{title}
+  p Welcome to #{user_name}
+  +list_item("oceans-eleven", "thriller","Danny Ocean makes an elevator pitch.")
