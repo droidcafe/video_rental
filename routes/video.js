@@ -14,4 +14,21 @@ routes.get('/', function(req, res) {
     });
 });
 
+
+routes.post('/', function(req, res) {
+    console.log('adding videos');
+    var collection = db.get('videos');
+    collection.insert({
+        title: req.body.title,
+        description: req.body.description
+    }, function(error, response) {
+        if (error) throw error;
+        res.json({
+            status: "ok",
+            code: 200,
+            res: response
+        });
+    });
+});
+
 module.exports = routes;
