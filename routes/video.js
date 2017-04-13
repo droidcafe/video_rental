@@ -31,4 +31,45 @@ routes.post('/', function(req, res) {
     });
 });
 
+routes.get('/:id', function(req, res) {
+    console.log('getting video details for ' + req.params.id);
+    var collection = db.get('videos');
+    collection.findOne({
+        _id: req.params.id
+    }, function(error, response) {
+        if (error) throw error;
+        res.json(response);
+    });
+
+});
+
+
+
+routes.put('/:id', function(req, res) {
+    console.log('updating video');
+    var collection = db.get('videos');
+    collection.update({
+        _id: req.params.id
+    }, {
+        title: req.body.title,
+        description: req.body.description
+    }, function(err, video) {
+        if (err) throw err;
+        res.json(video);
+    });
+});
+
+routes.delete('/:id', function(req, res) {
+    var collection = db.get('videos');
+    collection.remove({
+        _id: req.params.id
+    }, function(err) {
+        if (err) throw err;
+        res.json({
+            status: "OK",
+            delete: "istrue"
+        });
+    });
+});
+
 module.exports = routes;
